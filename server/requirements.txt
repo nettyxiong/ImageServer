@@ -1,0 +1,4 @@
+Hadoop
+hadoopy
+paramiko
+redis
