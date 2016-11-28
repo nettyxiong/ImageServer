@@ -47,8 +47,35 @@ def readMapFile(sourceMapfilePath,localDistPath=''):
     reader = MapFile.Reader(sourceMapfilePath)
     while reader.next(key, value):
         data = pickle.loads(value.toString())
-        with open(localPath+key.toString()+'.jpg','wb+') as f:
+        with open(localDistPath+key.toString()+'.jpg','wb+') as f:
             f.write(data)
+
+def readImageData(mapFileId):
+    if not _copyFromHDFS(mapFileId):
+        return None
+    readMapFile(mapFileId)
+
+def readImageBytes(mapFileId):
+    if not _copyFromHDFS(mapFileId):
+        return None
+
+    key = Text()
+    value = Text()
+    reader = MapFile.Reader(mapFileId)
+    while reader.next(key, value):
+        if key == mapFileId:
+            data = pickle.loads(value.toString())
+            return data
+    return None
+
+def _copyFromHDFS(mapFileId):
+    sourceMapfilePath = join(settings.images_hdfs_path,mapFileId)
+    try:
+        hadoopy.get(sourceMapfilePath,mapFileId)
+    except Exception, e:
+        print e
+        return False
+    return True
 
 def _writeToHDFS(mapFilePath='temp'):
     try:

@@ -4,6 +4,8 @@ from bottle import request, response
 from bottle import post, get, put, delete
 
 from util import HbaseUtil
+from util import MapFileUtil
+
 
 _names = set()                    # the set of names
 
@@ -36,8 +38,16 @@ def getImage(imageId):
 	if mapfileId is None:
 		pass
 	else:
-		pass
+		MapFileUtil.readImageBytes(mapfileId)
 
+def get_image(image_buffer,response):
+    image_buffer = BytesIO()
+    pi_camera.capture(image_buffer, format='jpeg') # This works without a problem
+
+    image_buffer.seek(0) # this may not be needed
+    bytes = image_buffer.read()
+    response.set_header('Content-type', 'image/jpeg')
+    return bytes
 
 
 if __name__ == '__main__':

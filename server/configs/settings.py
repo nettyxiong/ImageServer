@@ -3,6 +3,8 @@ import os
 prepare_dir="/home/sxiong/workspace/image-queue-py/images/preImages"
 queue_dir="/home/sxiong/workspace/image-queue-py/images/queueImages"
 images_hdfs_path="hdfs://172.19.0.2:9000/images"
+images_cache_folder="/home/sxiong/workspace/image-queue-py/caches/images"
+mapfile_cache_folder="/home/sxiong/workspace/image-queue-py/caches/mapfiles"
 
 #scp config
 server_host="127.0.0.1"
