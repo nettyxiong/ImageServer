@@ -5,25 +5,26 @@ sys.setdefaultencoding('utf8')
 sys.path.append("../configs")
 sys.path.append("configs")
 import settings
+import RedisUtil
+import HbaseUtil
 
 from hadoop.io.IntWritable import LongWritable
 from hadoop.io import MapFile
 from hadoop.io import Text
-
 import hadoopy
 
 from os import listdir
 from os.path import isfile, join
 from os import rmdir
 import pickle
-
 import shutil
+
 
 def _createMapFile(images,mapFilePath='temp'):
     writer = MapFile.Writer(mapFilePath, Text, Text)
     for path in images:
         print path
-        with open(path,'rb') as f:
+        with open(join(settings.queue_dir,path),'rb') as f:
             data = f.read()
             data = pickle.dumps(data)
             key = Text()
@@ -63,8 +64,18 @@ def _delMapFile(mapFilePath='temp'):
 def generateMapFileToHDFS(images,mapFileId):
     _createMapFile(images,mapFileId)
     _writeToHDFS(mapFileId)
+    recordImageMapFileId(images,mapFileId)
     _delMapFile(mapFileId)
+    RedisUtil.increaseMapFileId()
 
+def recordImageMapFileId(imageIds,mapFileId):
+    data = {}
+    data2 = {}
+    for image in imageIds:
+        data[image] = mapFileId
+        data2['image_id'] = image
+    HbaseUtil.put((mapFileId,data2))
+    return RedisUtil.hmsetImageToMapfile(data)
 
 if __name__ == '__main__':
     # print help(io.MapFile.Writer)

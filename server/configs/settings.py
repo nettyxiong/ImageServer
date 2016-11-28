@@ -15,6 +15,11 @@ redis_host="127.0.0.1"
 redis_port=6379
 redis_db=1
 
+#Hbase config
+hbase_host="172.17.0.5"
+hbase_table_prefix="imageserver"
+hbase_table_name="mapfileid_imageid"
+
 #Byte
 MAX_IMAGE_SIZE=200
 

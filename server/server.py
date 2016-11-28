@@ -26,9 +26,8 @@ def main():
 				ScpUtil.delFiles(getAbsolutePaths(preImageNames))
 		else:
 			RedisUtil.push(preImageNames)
-			allImages=RedisUtil.popAll()
-			MapFileUtil.generateMapFileToHDFS(getAbsolutePaths(allImages,settings.queue_dir),RedisUtil.getMapFileId())
-			RedisUtil.increaseMapFileId()
+			allImageNames=RedisUtil.popAll()
+			MapFileUtil.generateMapFileToHDFS(allImageNames,RedisUtil.getMapFileId())
 
 if __name__ == '__main__':
 	main()

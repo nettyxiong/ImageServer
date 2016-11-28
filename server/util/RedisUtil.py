@@ -11,6 +11,23 @@ IMAGE_QUEUE_KEY = "image_queue"
 IMAGE_PREPARE_QUEUE_KEY = "image_prepare_queue"
 IMAGE_SIZE_KEY = "image_toyal_size_byte"
 MAPFILE_ID_KEY = "mapfile_id"
+IMAGE_ID_TO_MAPFILEID_HASHSET_KEY = "iamge_id_to_mapfile_id"
+
+def hmsetImageToMapfile(kvDict):
+	try:
+		r.hmset(IMAGE_ID_TO_MAPFILEID_HASHSET_KEY,kvDict)
+	except Exception, e:
+		print e
+		return False
+	return True
+
+def hgetMapFileId(image_id):
+	try:
+		mapFileId = r.hget(IMAGE_ID_TO_MAPFILEID_HASHSET_KEY,image_id)
+	except Exception, e:
+		print e
+		mapFileId = None
+	return mapFileId
 
 def getMapFileId():
 	try:
@@ -118,5 +135,7 @@ def checkSize(size):
 if __name__ == '__main__':
 	# print addSize(1)
 	# print checkSize(1)
-	print getMapFileId()
-	print increaseMapFileId()
+	# print getMapFileId()
+	# print increaseMapFileId()
+	data = {"10":"0","11":"0"}
+	hmsetImageToMapfile(data)
