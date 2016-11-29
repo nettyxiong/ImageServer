@@ -10,9 +10,7 @@ conn = happybase.Connection(settings.hbase_host,table_prefix=settings.hbase_tabl
 def create_table(table_name):
 	return conn.create_table(
 		table_name,
-		{'index': dict(max_versions=10),
-		 'data': dict(max_versions=10)
-		}
+		{'index': dict(max_versions=10),'data': dict(max_versions=10)}
 	)
 
 def put_index(tupleData):
@@ -83,11 +81,12 @@ if __name__ == '__main__':
 	# # table.put(b'row-key', {b'cf1:col1': b'value1'}, timestamp=123456789)
 	# row = table.row(b'row-key')
 	# print row[b'cf1:col1']
-	data = ('2',{'imageid':'1223','videoid':'1111','frameid':'111'})
-	print put_index(data)
-	print put_data(data)
-	imageid2 = '111'
-	print test(imageid2)
-	table = conn.table(settings.hbase_table_name)
-	print type(table.row('1'))
-	print table.row('1')
+	# data = ('2',{'imageid':'1223','videoid':'1111','frameid':'111'})
+	# print put_index(data)
+	# print put_data(data)
+	# imageid2 = '111'
+	# print test(imageid2)
+	# table = conn.table(settings.hbase_table_name)
+	# print type(table.row('1'))
+	# print table.row('1')
+	init()

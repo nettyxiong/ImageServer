@@ -8,8 +8,12 @@ import time
 def getImagesTotalSize(imagePaths):
 	return sum(os.path.getsize(os.path.join(settings.prepare_dir,path)) for path in imagePaths)
 
-def getAbsolutePaths(images,folder_path=settings.prepare_dir):
-	return [os.path.join(folder_path,path) for path in images]
+def getAbsolutePaths(paths,folder_path=settings.prepare_dir):
+	return [os.path.join(folder_path,path) for path in paths]
+
+def delFiles(paths):
+	for path in paths:
+		os.remove(path)
 
 def main():
 	while 1:
@@ -23,7 +27,7 @@ def main():
 			RedisUtil.push(preImageNames)
 			RedisUtil.addSize(size)
 			if ScpUtil.getFiles(settings.prepare_dir,settings.queue_dir):
-				ScpUtil.delFiles(getAbsolutePaths(preImageNames))
+				delFiles(getAbsolutePaths(preImageNames))
 		else:
 			RedisUtil.push(preImageNames)
 			allImageNames=RedisUtil.popAll()

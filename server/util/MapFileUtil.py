@@ -16,9 +16,12 @@ import hadoopy
 from os import listdir
 from os.path import isfile, join
 from os import rmdir
+import os
+
 import pickle
 import shutil
 
+PATH_NOT_EXISTS_MESSAGE=" has exists in local file system"
 
 def _createMapFile(images,mapFilePath='temp'):
     writer = MapFile.Writer(mapFilePath, Text, Text)
@@ -37,18 +40,31 @@ def _createMapFile(images,mapFilePath='temp'):
     writer.close()
     return mapFilePath
 
-def readImages(folder):
-    images = [ join(mypath,f) for f in listdir(mypath) if isfile(join(mypath,f)) ]
+def readImages(mypath):
+    images = [ f for f in listdir(mypath) if isfile(join(mypath,f)) ]
     return images
 
-def readMapFile(sourceMapfilePath,localDistPath=''):
+def loadImages(mapFileId):
+    _copyFromHDFS(mapFileId)
+    readMapFile(mapFileId)
+
+def readMapFile(mapFileId,imageCachePath=settings.images_cache_folder):
+    sourceMapfilePath = join(settings.mapfile_cache_folder,mapFileId)
+    if not os.path.exists(sourceMapfilePath):
+        print sourceMapfilePath + PATH_NOT_EXISTS_MESSAGE
+        return False
     key = Text()
     value = Text()
     reader = MapFile.Reader(sourceMapfilePath)
     while reader.next(key, value):
         data = pickle.loads(value.toString())
-        with open(localDistPath+key.toString()+'.jpg','wb+') as f:
+        dir_path = join(imageCachePath,mapFileId)
+        if not os.path.exists(dir_path):
+            os.mkdir(dir_path)
+        image_path = join(dir_path,key.toString()) + '.jpg'
+        with open(image_path,'wb+') as f:
             f.write(data)
+    return True
 
 def readImageData(mapFileId):
     if not _copyFromHDFS(mapFileId):
@@ -70,8 +86,14 @@ def readImageBytes(mapFileId):
 
 def _copyFromHDFS(mapFileId):
     sourceMapfilePath = join(settings.images_hdfs_path,mapFileId)
+    localDistPath = join(settings.mapfile_cache_folder,mapFileId)
+    if os.path.exists(localDistPath):
+        print localDistPath + PATH_NOT_EXISTS_MESSAGE
+        return True
+    print sourceMapfilePath
+    print localDistPath
     try:
-        hadoopy.get(sourceMapfilePath,mapFileId)
+        hadoopy.get(sourceMapfilePath,localDistPath)
     except Exception, e:
         print e
         return False
@@ -109,7 +131,10 @@ if __name__ == '__main__':
     # print help(io.BytesWritable)
     mypath = '../images'
     images = readImages(mypath)
+    # print images
     # createMapFile(images)
     # readMapFile('temp')
     # print writeToHDFS('temp')
-    generateMapFileToHDFS(images)
+    # generateMapFileToHDFS(images,'1')
+    # _copyFromHDFS('1')
+    readMapFile('1')
