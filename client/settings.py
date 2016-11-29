@@ -10,4 +10,4 @@ redis_port=6379
 redis_db=1
 
 #image server pre Images queue dir
-remote_dir="/home/sxiong/workspace/image-queue-py/images/preImages"
+remote_dir="/home/sxiong/workspace/ImageServer/images/preImages"
