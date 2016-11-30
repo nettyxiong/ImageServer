@@ -1,6 +1,0 @@
-Hadoop
-hadoopy
-paramiko
-redis
-bottle
-gunicorn
