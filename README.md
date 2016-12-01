@@ -3,9 +3,8 @@
 # 版本二
 1. 参考Quora上的帖子[Is-it-possible-to-use-HDFS-HBase-to-serve-images](https://www.quora.com/Is-it-possible-to-use-HDFS-HBase-to-serve-images)
 2. 图片以二进制形式存储于HBASE中
-
-### restart-cluster.sh
-- 基于docker部署hbase、hdfs
+3. 依赖 python 2.7+
+4. `sudo pip install -r requirements.txt`
 
 ### api.py
 ###### 图片REST API
@@ -23,3 +22,8 @@ python client.py ~/Pictures/Video_8582/frame29.jpg
 or
 python client.py ~/Pictures/Video_8582
 ```
+
+### restart-cluster.sh
+- 基于docker部署hbase、hdfs
+- 自行保证有hbase、hdfs集群即可
+- 在settings.py中进行相关参数配置
