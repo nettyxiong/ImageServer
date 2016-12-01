@@ -9,11 +9,11 @@
 
 ### api.py
 - 图片REST API
-  - GET /api/image/imageId 获取imageId的图片
-  - DEL /api/image/imageId 删除imageId的图片
-  - PUT /api/image/imageId 上传imageId的图片
-  - POST /api/image/imageId 更新imageId的图片
-  - POST /api/images/ 上传多张图片
+  1. GET /api/image/imageId 获取imageId的图片
+  2. DEL /api/image/imageId 删除imageId的图片
+  3. PUT /api/image/imageId 上传imageId的图片
+  4. POST /api/image/imageId 更新imageId的图片
+  5. POST /api/images/ 上传多张图片
   
 ### client.py
 - 上传图片，支持文件夹与单张图片两种方式
