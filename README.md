@@ -1,5 +1,6 @@
 # ImageServer 
-基于HDFS的图片存储服务
+分布式图片服务器，基于HDFS/HBASE等
+按照实现思路，共有3种实现，分别对应3个分支，master，v2，v3
 # 版本一
 1. 参考博客[hadoop+hbase海量图片存储](http://blog.csdn.net/good_mpj/article/details/43309553?ref=myread)
 2. 图片以MapFile形式存储于HDFS中
@@ -23,5 +24,5 @@
 ###读取数据流
 <img src="static_files/read.png" width="70%" height="70%" align="middle">
 
-
-
+###读写性能测试
+TODO
