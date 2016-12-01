@@ -1,14 +1,12 @@
 import settings
 import bottle
 from bottle import static_file
-
 from bottle import request, response
 from bottle import post, get, put, delete
 
 import HbaseUtil
 
 import os
-import urllib
 import pickle
 
 @get('/api/image/<imageId>')

@@ -1,0 +1,4 @@
+happybase
+bottle
+pickle
+requests
