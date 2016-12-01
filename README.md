@@ -18,10 +18,10 @@
 3. 运行:`python client.py "~/Picetures"` or `python client.py "~/Picetures/frame10.jpg"`
 
 ###写入数据流
-<img src="./write.png" width="70%" height="70%" align="middle">
+<img src="static_files/write.png" width="70%" height="70%" align="middle">
 
 ###读取数据流
-<img src="./read.png" width="70%" height="70%" align="middle">
+<img src="static_files/read.png" width="70%" height="70%" align="middle">
 
 
 
