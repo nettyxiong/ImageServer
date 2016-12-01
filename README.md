@@ -11,7 +11,8 @@
 ### server
 1. 队列监测端，常驻内存服务，队列满启动创造MapFile写Hdfs流程
 2. 安装:`cd server && sudo pip install -r requirements.txt`
-3. 运行：`nohup python server.py > server.out &`
+3. 运行：`nohup python server.py > server.log &`
+4. REST API(only GET): `nohup python api.py > api.log &`
 
 ### client
 1. 写入图片到server的预备队列，支持批量写入
