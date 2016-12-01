@@ -17,5 +17,8 @@
 2. 安装:`cd client && sudo pip install -r requirements.txt`
 3. 运行:`python client.py "~/Picetures"` or `python client.py "~/Picetures/frame10.jpg"`
 
+###写入数据流
+![写入流](./write.png)
 
-
+###读取数据流
+![读取流](./read.png)
