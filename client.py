@@ -2,11 +2,13 @@
 import requests
 import os
 import pickle
+import sys
+
 POST_IMAGES_URL = "http://127.0.0.1:8000/api/images/"
 POST_IMAGE_URL = "http://127.0.0.1:8000/api/image/"
 def post_data(data,api_url=POST_IMAGES_URL):
 	while True:
-		r = requests.post(url=api_url,data=data)
+		r = requests.post(url=api_url,data=data,headers={'Connection':'close'})
 		if r.status_code == 200:
 			break
 	print r.status_code

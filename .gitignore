@@ -90,3 +90,5 @@ ENV/
 
 images/
 caches/
+sftp-config.json
+stop-cluster.sh
