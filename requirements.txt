@@ -1,4 +1,7 @@
 happybase
 bottle
-pickle
 requests
+greenlet
+eventlet
+gevent
+multi-mechanize
