@@ -13,6 +13,7 @@
 3. PUT /api/image/imageId 上传imageId的图片
 4. POST /api/image/imageId 更新imageId的图片
 5. POST /api/images/ 上传多张图片
+
 ###### 运行
 ```bash
 gunicorn -c gunicorn_config.py api:app
