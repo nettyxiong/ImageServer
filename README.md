@@ -43,9 +43,9 @@ python client.py ~/Pictures/Video_8582
         GET | 1200  | 磁盘IO
         POST | 1100  | 磁盘IO
         
-        [GET](http://htmlpreview.github.io/?https://github.com/sixiong/ImageServer/blob/v2/benchmark/results/results_2016.12.07_16.38.10/results.html)
-
+        [GET](http://htmlpreview.github.io/?https://github.com/sixiong/ImageServer/blob/v2/benchmark/results/results_2016.12.07_16.38.10/results.html)        
         [POST](http://htmlpreview.github.io/?https://github.com/sixiong/ImageServer/blob/v2/benchmark/results/results_2016.12.08_10.08.11/results.html)
+        
 6. 原因分析
 
 整个HBASE集群搭建在docker中，所有节点的磁盘IO都是经由宿主机来完成的，故磁盘IO很容易跑满，成为瓶颈</br>
