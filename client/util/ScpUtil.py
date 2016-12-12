@@ -4,6 +4,12 @@ sys.path.append("..")
 import settings
 
 import paramiko,datetime,os
+import logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="[%(asctime)s] [%(levelname)s] [%(filename)s:%(lineno)s:%(funcName)s] %(message)s",
+    datefmt='%Y-%m-%d %H:%M:%S',   
+)
 
 hostname = settings.server_host
 username = settings.ssh2_username
@@ -30,7 +36,7 @@ def _transferFiles(local_dir,remote_dir,remote_prefix="",flag="get"):
 		t.close()
 		return True
 	except Exception, e:
-		print e
+		logging.exception(e)
 		return False
 
 def getFiles(remote_dir,local_dir):
@@ -51,7 +57,7 @@ def _transferFile(local_path,remote_path,flag="get"):
 		t.close()
 		return True
 	except Exception, e:
-		print e
+		logging.exception(e)
 		return False
 	
 def getFile(remote_path,local_path):

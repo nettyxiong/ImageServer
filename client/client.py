@@ -64,8 +64,8 @@ or
 python client.py '~/Pictures/Video_8582/'
 '''
 if __name__ == '__main__':
-	# if len(sys.argv) < 2:
-	# 	print 'missing argument please input the image path'
-	# 	exit(1)
-	# putImagesToServer(sys.argv[1])
-	putImagesToServer("/home/sxiong/Pictures/Video_8582/")
+	if len(sys.argv) < 2:
+		print 'missing argument please input the image path'
+		exit(1)
+	putImagesToServer(sys.argv[1])
+	# putImagesToServer("/home/sxiong/Pictures/Video_8582/")

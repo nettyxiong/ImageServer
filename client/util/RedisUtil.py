@@ -3,6 +3,12 @@ sys.path.append("..")
 import settings
 
 import redis
+import logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="[%(asctime)s] [%(levelname)s] [%(filename)s:%(lineno)s:%(funcName)s] %(message)s",
+    datefmt='%Y-%m-%d %H:%M:%S',   
+)
 
 pool = redis.ConnectionPool(host=settings.redis_host, port=settings.redis_port, db=settings.redis_db, max_connections=10)
 r = redis.StrictRedis(connection_pool=pool)
@@ -18,7 +24,7 @@ def pushPre(v):
 		elif type(v) is str:
 			r.lpush(IMAGE_PREPARE_QUEUE_KEY,v)
 	except Exception, e:
-		print e
+		logging.exception(e)
 		return False
 	return True
 
@@ -34,7 +40,7 @@ def push(v):
 	try:
 		r.lpush(IMAGE_QUEUE_KEY,v)
 	except Exception, e:
-		print e
+		logging.exception(e)
 		return false
 	return True
 
@@ -55,7 +61,7 @@ def addSize(size):
 		total += size
 		r.set(IMAGE_SIZE_KEY,total)
 	except Exception, e:
-		print e
+		logging.exception(e)
 		return False
 	return True
 
@@ -67,7 +73,7 @@ def getSize():
 		else:
 			size = int(size)
 	except Exception, e:
-		print e
+		logging.exception(e)
 		size = 0
 	return size
 
@@ -79,7 +85,7 @@ def checkSize(size):
 		else:
 			return False
 	except Exception, e:
-		print e
+		logging.exception(e)
 		return False
 
 if __name__ == '__main__':
