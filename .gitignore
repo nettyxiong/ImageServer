@@ -87,6 +87,7 @@ ENV/
 
 # Rope project settings
 .ropeproject
-
+sftp-config.json
+stop-cluster.sh
 images/
 caches/
