@@ -1,8 +1,10 @@
 import os
 #image folder path
+prepare_dir="/home/sxiong/workspace/v1/ImageServer/images/preImages"
+queue_dir="/home/sxiong/workspace/v1/ImageServer/images/queueImages"
 images_hdfs_path="hdfs://172.17.0.5:9000/images"
-images_cache_folder="/home/sxiong/workspace/ImageServer/caches/images"
-mapfile_cache_folder="/home/sxiong/workspace/ImageServer/caches/mapfiles"
+images_cache_folder="/home/sxiong/workspace/v1/ImageServer/caches/images"
+mapfile_cache_folder="/home/sxiong/workspace/v1/ImageServer/caches/mapfiles"
 
 #scp config
 server_host="127.0.0.1"

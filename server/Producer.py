@@ -23,6 +23,7 @@ logging.basicConfig(
 	datefmt='%Y-%m-%d %H:%M:%S',   
 )
 MAX_MAPFILE_ID = 1000000
+
 class MapFileProducer:
 	def __init__(self,images,settings):
 		self.images = images
