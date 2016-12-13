@@ -1,36 +1,38 @@
 from configs import settings
 import bottle
 from bottle import static_file
-
 from bottle import request, response
 from bottle import post, get, put, delete
 
+from util import FileUtil
 from util import HbaseUtil
 from util import MapFileUtil
 from os.path import join
 
-@get('/api/images/<imageId>')
+import logging
+logging.basicConfig(
+	level=logging.INFO,
+	format="[%(asctime)s] [%(levelname)s] [%(filename)s:%(lineno)s:%(funcName)s] %(message)s",
+	datefmt='%Y-%m-%d %H:%M:%S',   
+)
+@get('/api/image/<imageId>')
 def getImage(imageId):
-	'''
-	get the Image data by imageId
-	'''
-	mapfileId = HbaseUtil.getByIndex(imageId,'imageId')
-	if mapfileId is None:
-		folder_path = settings.queue_dir
-	else:
-		MapFileUtil.loadImages(mapfileId)
-		folder_path = join(settings.images_cache_folder,mapfileId)
+	if not FileUtil.exists(join(settings.images_cache_folder,imageId)):
+		mapfileId = HbaseUtil.getMapFileId(imageId)
+		logging.info(mapfileId)
+		if mapfileId is None:
+			logging.error('404')
+			response.status = 404
+			return
+		if FileUtil.exists(join(settings.mapfile_cache_folder,mapfileId)):
+			MapFileUtil.readMapFile(mapfileId)
+		else:
+			MapFileUtil.readMapFileFromHdfs(mapfileId)
+	# folder_path = join(settings.images_cache_folder,mapfileId)
+	folder_path = settings.images_cache_folder
+	logging.info(folder_path)
 	return static_file(imageId,root=folder_path,mimetype='image/jpg')
 
-def _get_image_test(image_buffer,response):
-	image_buffer = BytesIO()
-	pi_camera.capture(image_buffer, format='jpeg')
-
-	image_buffer.seek(0)
-	bytes = image_buffer.read()
-	response.set_header('Content-type', 'image/jpeg')
-	return bytes
-
-
 if __name__ == '__main__':
-	bottle.run(server='gunicorn', host = settings.api_host, port = settings.api_port)
+	bottle.run(host = settings.api_host, port = settings.api_port)
+	# bottle.run(server='gunicorn', host = settings.api_host, port = settings.api_port)

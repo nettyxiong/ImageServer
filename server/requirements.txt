@@ -1,5 +1,3 @@
-Hadoop
-hadoopy
 paramiko
 redis
 bottle

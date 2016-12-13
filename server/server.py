@@ -2,36 +2,42 @@ from configs import settings
 from util import RedisUtil
 from util import MapFileUtil
 from util import ScpUtil
+from util import FileUtil
+from Producer import MapFileProducer
 import os
 import time
 
-def getImagesTotalSize(imagePaths):
-	return sum(os.path.getsize(os.path.join(settings.prepare_dir,path)) for path in imagePaths)
+class Server:
+	def __init__(self,prepare_dir,queue_dir):
+		self.prepare_dir = prepare_dir
+		self.queue_dir = queue_dir
+		self.num = 100
 
-def getAbsolutePaths(paths,folder_path=settings.prepare_dir):
-	return [os.path.join(folder_path,path) for path in paths]
+	def _getImagesTotalSize(self,imagePaths):
+		return sum(os.path.getsize(os.path.join(self.prepare_dir,path)) for path in imagePaths)
 
-def delFiles(paths):
-	for path in paths:
-		os.remove(path)
+	def _transfer(self,size):
+		images = RedisUtil.pop(self.num,"prepare")
+		if images:
+			if RedisUtil.push(images,"image") and RedisUtil.addSize(size):
+				if FileUtil.moveImages(images,self.prepare_dir,self.queue_dir):
+					return True
+		return False
 
-def main():
-	while 1:
-		time.sleep(settings.TIME_INTERVAL)
-		preImageNames = RedisUtil.popPre()
-		print preImageNames
-		if preImageNames is None or len(preImageNames)==0:
-			continue
-		size = getImagesTotalSize(preImageNames)
-		if not RedisUtil.checkSize(size):
-			RedisUtil.push(preImageNames)
-			RedisUtil.addSize(size)
-			if ScpUtil.getFiles(settings.prepare_dir,settings.queue_dir):
-				delFiles(getAbsolutePaths(preImageNames))
-		else:
-			RedisUtil.push(preImageNames)
-			allImageNames=RedisUtil.popAll()
-			MapFileUtil.generateMapFileToHDFS(allImageNames,RedisUtil.getMapFileId())
+	def run(self,time_interval):
+		while 1:
+			time.sleep(time_interval)
+			preImageNames = RedisUtil.get(self.num,"prepare")
+			print preImageNames
+			if preImageNames is None or len(preImageNames)==0:
+				continue
+			size = self._getImagesTotalSize(preImageNames)
+			self._transfer(size)
+			if RedisUtil.checkSize(size):
+				allImages=RedisUtil.popAll()
+				print allImages
+				MapFileProducer(allImages,settings).run()
 
 if __name__ == '__main__':
-	main()
+	server = Server(settings.prepare_dir,settings.queue_dir)
+	server.run(settings.TIME_INTERVAL)

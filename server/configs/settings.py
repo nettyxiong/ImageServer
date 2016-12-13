@@ -1,7 +1,5 @@
 import os
 #image folder path
-prepare_dir="/home/sxiong/workspace/ImageServer/images/preImages"
-queue_dir="/home/sxiong/workspace/ImageServer/images/queueImages"
 images_hdfs_path="hdfs://172.17.0.5:9000/images"
 images_cache_folder="/home/sxiong/workspace/ImageServer/caches/images"
 mapfile_cache_folder="/home/sxiong/workspace/ImageServer/caches/mapfiles"
@@ -19,12 +17,14 @@ redis_db=1
 
 #Hbase config
 hbase_host="172.17.0.5"
-hbase_table_prefix="imageserver"
-hbase_table_name="mapfileid_imageid"
+hbase_table_prefix="v1"
+hbase_table_name="image"
+hbase_pool_size=10
+hbase_time_out=None
 
 #api service config
-api_host="127.0.0.1"
-api_port=8000
+api_host="0.0.0.0"
+api_port=8001
 #Byte
 MAX_IMAGE_SIZE=200
 
