@@ -25,6 +25,7 @@
 [Hadoopy](http://www.hadoopy.com/en/latest/tutorial.html)
 
 `sudo pip install -e git+https://github.com/bwhite/hadoopy#egg=hadoopy`
+
 Hadoopy依赖Hadoop的shell client,下载Hadoop安装包解压，添加环境变量即可
 
 其它
@@ -32,7 +33,8 @@ Hadoopy依赖Hadoop的shell client,下载Hadoop安装包解压，添加环境变
 cd server && sudo pip install -r requirements.txt
 ```
 
-###### 说明
+##### 说明
+
 1. 队列监测端，常驻内存服务，队列满启动创造MapFile写Hdfs流程
 2. 安装:`cd server && sudo python install.py`
 3. 运行：`nohup python server.py > server.log &`
