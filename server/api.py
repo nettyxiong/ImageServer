@@ -15,6 +15,7 @@ logging.basicConfig(
 	format="[%(asctime)s] [%(levelname)s] [%(filename)s:%(lineno)s:%(funcName)s] %(message)s",
 	datefmt='%Y-%m-%d %H:%M:%S',   
 )
+
 @get('/api/image/<imageId>')
 def getImage(imageId):
 	if not FileUtil.exists(join(settings.images_cache_folder,imageId)):
