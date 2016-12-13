@@ -9,6 +9,19 @@
 5. 构建MapFileId与图片Id之间的对应关系，此K-V键值对存储于HBase/Redis
 
 ### server
+##### requirements
+*centos*
+`sudo yum install python python-pip python-devel gcc libffi-devel  openssl-devel`
+*ubuntu*
+`sudo apt-get install python python-pip build-essential libssl-dev libffi-dev python-dev`
+[Hadoop MapFile python api](https://github.com/sixiong/Hadoop) `git clone https://github.com/sixiong/Hadoop.git && cd Hadoop/python-hadoop && sudo python setup.py install`
+[Hadoopy](http://www.hadoopy.com/en/latest/tutorial.html) `sudo pip install -e git+https://github.com/bwhite/hadoopy#egg=hadoopy`
+
+```bash
+sudo pip install -e git+https://github.com/bwhite/hadoopy#egg=hadoopy
+cd server && sudo pip install -r requirements.txt
+
+```
 1. 队列监测端，常驻内存服务，队列满启动创造MapFile写Hdfs流程
 2. 安装:`cd server && sudo pip install -r requirements.txt`
 3. 运行：`nohup python server.py > server.log &`

@@ -1,3 +1,4 @@
+happybase
 paramiko
 redis
 bottle
