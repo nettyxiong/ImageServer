@@ -53,7 +53,7 @@ cd server && sudo pip install -r requirements.txt
 
 ## 读写性能测试
 #### apache benchmark(ab)
-usage:ab -c 1000 -n 1000000 http://127.0.0.1:82/api/image/Video_8582-frame800.jpg
+usage:`ab -c 1000 -n 1000000 http://127.0.0.1:82/api/image/Video_8582-frame800.jpg`
 ```
 Server Software:        nginx/1.10.2
 Server Hostname:        127.0.0.1
@@ -93,7 +93,7 @@ Percentage of the requests served within a certain time (ms)
  100%   1094 (longest request)
 ```
 #### multi-mechanize
-usage:multimech-run benchmark/
+usage:`multimech-run benchmark/`
 
         Request TYPE | tps | 瓶颈
         ----|------|----
