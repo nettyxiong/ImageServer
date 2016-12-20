@@ -99,5 +99,5 @@ usage:multimech-run benchmark/
         ----|------|----
         GET | 2700  | 磁盘IO
 
-        [GET](http://htmlpreview.github.io/?https://github.com/sixiong/ImageServer/blob/v2/benchmark/results/results_2016.12.20_15.45.18/results.html)</br>
+        [GET](http://htmlpreview.github.io/?https://github.com/sixiong/ImageServer/blob/master/benchmark/results/results_2016.12.20_15.45.18/results.html)</br>
 
