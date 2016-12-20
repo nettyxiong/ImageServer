@@ -6,8 +6,10 @@ import requests
 class Transaction(object):
 	def __init__(self):
 		self.custom_timers = {}
-		# self.api_url = 'http://127.0.0.1:82/api/image/Video_8582-frame800.jpg'
-		self.api_url = 'https://www.baidu.com'
+		self.api_url = 'http://127.0.0.1:82/api/image/Video_8582-frame800.jpg'
+		self.br = mechanize.Browser()
+
+		# self.api_url = 'https://www.baidu.com'
 
 	def run(self):
 
@@ -17,10 +19,9 @@ class Transaction(object):
 		# assert (code == 200), 'Bad Response: HTTP %s' % code
 		# self.custom_timers['GET'] = time.time() - start_time
 
-		br = mechanize.Browser()
-		br.set_handle_robots(False)
+		self.br.set_handle_robots(False)
 		start_time = time.time()
-		resp = br.open(self.api_url)
+		resp = self.br.open(self.api_url)
 		code =resp.code
 		assert (code == 200), 'Bad Response: HTTP %s' % code
 		self.custom_timers['GET'] = time.time() - start_time
