@@ -37,3 +37,5 @@ def getImage(imageId):
 if __name__ == '__main__':
 	bottle.run(host = settings.api_host, port = settings.api_port)
 	# bottle.run(server='gunicorn', host = settings.api_host, port = settings.api_port)
+else:
+	app = application = bottle.default_app()
