@@ -2,7 +2,7 @@
 分布式图片服务器，基于HDFS/HBASE等
 按照实现思路，共有3种实现，分别对应3个分支，master，v2，v3
 # 版本一
-1. 参考博客[hadoop+hbase海量图片存储](http://blog.csdn.net/good_mpj/article/details/43309553?ref=myread)
+1. 参考论文[A novel approach for efficient handling of small files in HDFS](http://ieeexplore.ieee.org/document/7154903/?reload=true&tp=&arnumber=7154903)
 2. 图片以MapFile形式存储于HDFS中
 3. 构建MapFile生成队列，当队列达到阈值后，构建MapFile,写入HDFS中
 4. 队列使用Redis，元数据存储于Redis，图像数据暂存于localFileSystem
